@@ -12,6 +12,8 @@ public:
 			delete arr[i];
 		}
 	}
+
+
 	//start the program
 	void  start();
 

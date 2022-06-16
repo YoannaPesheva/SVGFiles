@@ -24,6 +24,9 @@
     <ClCompile Include="CommandExecutioner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Figures.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommandExecutioner.h">

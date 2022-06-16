@@ -1,87 +1,56 @@
 #pragma once
 class Line {
 private:
+	char shape[10];
+	//string colour;
 	double x, y;
 public:
-	Line() {
-		x = 0;
-		y = 0;
-	}
-
-	Line(double _x, double _y)
-	{
-		x = _x;
-		y = _y;
-	}
+	Line();
+	Line(double _x, double _y);
 
 	void setX(double _x) { x = _x; }
 	void setY(double _y) { y = _y; }
+	char* setShape(char* _shape);
 
 	const double getX() const { return x; }
 	const double getY() const { return y; }
+	const char* getShape() const { return shape; }
 
-	void translateFig(double horizontal, double vertical)
-	{
-		x = x + horizontal;
-		y = y + vertical;
-	}
-	virtual void print()
-	{
-		std::cout << "X is: " << x << std::endl;
-		std::cout << "Y is: " << y << std::endl;
-	}
+	void translateFig(double horizontal, double vertical);
+
+	virtual bool withinCircle(double _x, double _y, double _radius);
+	virtual bool withinRectangle(double _x, double _y, double _height, double _width);
+
+	virtual void print();
 };
+
 
 class Circle : public Line {
 private:
 	double radius;
-	// string maybe?
 	//string colour;
 public:
-	Circle()
-	{
-		radius = 0;
-	}
-
-	Circle(double _x, double _y, double _radius)
-	{
-		setX(_x);
-		setY(_y);
-		radius = _radius;
-	}
+	Circle();
+	Circle(double _x, double _y, double _radius, char* shape);
 
 	void setRadius(double _radius) { radius = _radius; }
-
 	double getRadius() const { return radius; }
 
+	bool withinCircle(double _x, double _y, double _radius);
+	//!!!
+	bool withinRectangle(double _x, double _y, double _height, double _width);
 
-	void print()
-	{
-		std::cout << "Circle: " << std::endl;
-		Line::print();
-		std::cout << "Radius: " << radius << std::endl;
-	}
+	void print();
 };
+
 
 class Rectangle : public Line {
 private:
 	double width, height;
-	// string maybe?
 	//string colour;
 public:
-	Rectangle()
-	{
-		width = 0;
-		height = 0;
-	}
-
-	Rectangle(int _x, int _y, int _width, int _height)
-	{
-		setX(_x);
-		setY(_y);
-		width = _width;
-		height = _height;
-	}
+	Rectangle();
+	Rectangle(int _x, int _y, int _width, int _height, char* shape);
 
 	void setWidth(double _width) { width = _width; }
 	void setHeight(double _height) { height = _height; }
@@ -89,15 +58,10 @@ public:
 	double getWidth() const { return width; }
 	double getHeight() const { return height; }
 
+	//!!!
+	bool withinCircle(double _x, double _y, double _radius);
+	//!!!
+	bool withinRectangle(double _x, double _y, double _height, double _width);
 
-	void print()
-	{
-		std::cout << "Rectangle: " << std::endl;
-		Line::print();
-		std::cout << "Width: " << width << std::endl;
-		std::cout << "Height: " << height << std::endl;
-	}
-
-
-
+	void print();
 };

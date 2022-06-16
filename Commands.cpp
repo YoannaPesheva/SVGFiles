@@ -18,8 +18,8 @@ void Commands::printCommands()
 	std::cout << "1. Translate." << std::endl;
 	std::cout << "2. Add(a figure)." << std::endl;
 	std::cout << "3. Remove(a figure)." << std::endl;
-	std::cout << "4. Within(find all the figures within a shape." << std::endl;
-	std::cout << "5. Prints all the figures." << std::endl;
+	std::cout << "4. Within(find all the figures within a shape)." << std::endl;
+	std::cout << "5. Print(prints all the figures)." << std::endl;
 	std::cout << "6. End(the session)." << std::endl;
 	std::cout << "7. Help(prints the commands again)." << std::endl;
 }

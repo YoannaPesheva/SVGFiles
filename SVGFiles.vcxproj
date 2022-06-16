@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="CommandExecutioner.cpp" />
     <ClCompile Include="Commands.cpp" />
+    <ClCompile Include="Figures.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
