@@ -1,9 +1,87 @@
 #include "CommandExecutioner.h"
 #include<iostream>
 
+void CommandExecutioner::remove()
+{
+	for (int i = 0; i < arr.getCurrSize(); i++)
+	{
+		delete arr[i];
+	}
+}
+
+CommandExecutioner::CommandExecutioner()
+{
+	arr = Vector<Figure*>();
+}
+
+CommandExecutioner::CommandExecutioner(const CommandExecutioner& other)
+{
+	for (int i = 0; i < other.arr.getCurrSize(); i++)
+	{
+		this->arr[i] = other.arr[i];
+	}
+}
+
+CommandExecutioner& CommandExecutioner::operator=(const CommandExecutioner& other)
+{
+	if (this != &other)
+	{
+		remove();
+		for (int i = 0; i < other.arr.getCurrSize(); i++)
+		{
+			this->arr[i] = other.arr[i];
+		}
+	}
+	return *this;
+}
+
 void CommandExecutioner::start()
 {
-	//read from file
+	char command[16] = "-1";
+	int commandCode = 0;
+	Commands::printCommands();
+	std::cout << "What would you like to do: ";
+	std::cin.getline(command, 16);
+	do
+	{
+		commandCode = Commands::getCommand(command);
+		if (commandCode == 0)
+		{
+			InvalidCommandMessage();
+		}
+		else if (commandCode == 1)
+		{
+			executeTranslation();
+		}
+		else if (commandCode == 2)
+		{
+			addFigure();
+		}
+		else if (commandCode == 3)
+		{
+			removeFigure();
+		}
+		else if (commandCode == 4)
+		{
+			executeWithinFigure();
+		}
+		else if (commandCode == 5)
+		{
+			printAll();
+		}
+		else if (commandCode == 7)
+		{
+			Commands::printCommands();
+		}
+		if (commandCode == 6)
+		{
+			EndProgram();
+			break;
+		}
+		std::cout << "What would you like to do: ";
+		std::cin.getline(command, 16);
+
+	} while (commandCode != 6);
 }
 
 void CommandExecutioner::InvalidCommandMessage()
@@ -47,12 +125,11 @@ void CommandExecutioner::executeTranslation()
 void CommandExecutioner::executeWithinFigure()
 {
 
-	// x and y for line - start and end of the line
 	// x and y for circle - the coordinates of the center
 	// x and y for rectangle - the coordinates of the top left corner
-	char figure[10];
+	char figure[10]="\0";
 	do {
-		std::cout << "Please enter the figure, for which you would like to check whats inside (be aware, the figure can be either circle or rectangle): ";
+		std::cout << "Please enter the figure, which you would like to check whats inside for (be aware, the figure can be either circle or rectangle): ";
 		std::cin.getline(figure, 10);
 	} while (strcmp(figure, "circle") != 0 || strcmp(figure, "rectangle") != 0);
 
@@ -131,11 +208,17 @@ void CommandExecutioner::addFigure()
 	}
 	else if (strcmp(figure, "line") == 0 || strcmp(figure, "Line") == 0)
 	{
+		double xEnd = 0;
+		double yEnd = 0;
 		std::cout << "Please enter X: ";
 		std::cin >> x;
 		std::cout << "Please enter Y: ";
 		std::cin >> y;
-		arr.add(new Line(x, y));
+		std::cout << "Please enter X, which is the coordinate of the end point: ";
+		std::cin >> xEnd;
+		std::cout << "Please enter Y, which is the coordinate of the start point: ";
+		std::cin >> yEnd;
+		arr.add(new Line(x, y, xEnd, yEnd, figure));
 	}
 	else
 	{
@@ -152,8 +235,8 @@ void CommandExecutioner::removeFigure()
 	do {
 		std::cout << "Please enter the number of the figure you want removed: ";
 		std::cin >> index;
-	} while (index<0 || index>arr.getCurrSize());
-	arr.removeAt(index);
+	} while (index<=0 || index>arr.getCurrSize());
+	arr.removeAt(++index);
 	std::cout << "The figure was successfully removed!" << std::endl;
 	std::cin.ignore(1);
 }

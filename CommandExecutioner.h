@@ -3,15 +3,14 @@
 #include "Commands.h"
 class CommandExecutioner {
 private:
-	Vector<Line*> arr;
+	Vector<Figure*> arr;
+	void remove();
 
 public:
-	~CommandExecutioner() {
-		for (int i = 0; i < arr.getCurrSize(); i++)
-		{
-			delete arr[i];
-		}
-	}
+	CommandExecutioner();
+	CommandExecutioner(const CommandExecutioner& other);
+	CommandExecutioner& operator=(const CommandExecutioner& other);
+	~CommandExecutioner() { remove(); }
 
 
 	//start the program
