@@ -142,12 +142,14 @@
     <ClCompile Include="CommandExecutioner.cpp" />
     <ClCompile Include="Commands.cpp" />
     <ClCompile Include="Figures.cpp" />
+    <ClCompile Include="FileWork.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommandExecutioner.h" />
     <ClInclude Include="Commands.h" />
     <ClInclude Include="Figures.h" />
+    <ClInclude Include="FileWork.h" />
     <ClInclude Include="String.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>

@@ -14,7 +14,7 @@ char* Figure::setShape(char* _shape)
 	return shape;
 }
 
-void Figure::print()
+void Figure::print() const
 {
 	std::cout << getShape() << std::endl;
 	std::cout << "X is: " << x << std::endl;
@@ -48,7 +48,7 @@ void Line::translateFig(double horizontal, double vertical)
 	yEnd = yEnd + vertical;
 }
 
-bool Line::withinCircle(double _x, double _y, double _radius)
+bool Line::withinCircle(double _x, double _y, double _radius) const
 {
 
 	double d = sqrt(pow((_x - getX()), 2) + pow((_y - getY()), 2));
@@ -58,17 +58,22 @@ bool Line::withinCircle(double _x, double _y, double _radius)
 }
 
 
-bool Line::withinRectangle(double _x, double _y, double _height, double _width)
+bool Line::withinRectangle(double _x, double _y, double _height, double _width) const
 {
 	if ((getX() > _x && xEnd < _x + _width) && (getY() > _y && yEnd < _y - _height)) return true;
 	return false;
 }
 
-void Line::print()
+void Line::print() const
 {
 	Figure::print();
 	std::cout << "X of the end point is: " << xEnd << std::endl;
 	std::cout << "Y of the end point is: " << yEnd << std::endl;
+}
+
+void Line::writeFile() const
+{
+	std::cout << "<" << getShape() << " x1 = \"" << getX() << "\" y1 = \"" << getY() << "\" x2 = \"" << xEnd << "\" y2 = \"" << yEnd << "\" fill = \"" << getColour() << "\" />";
 }
 
 
@@ -94,22 +99,27 @@ void Circle::translateFig(double horizontal, double vertical)
 	setY(getY() + vertical);
 }
 
-bool Circle::withinCircle(double _x, double _y, double _radius)
+bool Circle::withinCircle(double _x, double _y, double _radius) const
 {
 	double d = sqrt(pow((_x - getX()), 2) + pow((_y - getY()), 2));
 	if (_radius > (d + radius)) return true;
 	return false;
 }
 
-bool Circle::withinRectangle(double _x, double _y, double _height, double _width)
+bool Circle::withinRectangle(double _x, double _y, double _height, double _width) const
 {
 	return false;
 }
 
-void Circle::print()
+void Circle::print() const
 {
 	Figure::print();
 	std::cout << "Radius: " << radius << std::endl;
+}
+
+void Circle::writeFile() const
+{
+	std::cout << "<" << getShape() << " cx = \"" << getX() << "\" cy = \"" << getY() << "\" r = \"" << radius << "\" fill = \"" << getColour() << "\" />";
 }
 
 
@@ -137,19 +147,25 @@ void Rectangle::translateFig(double horizontal, double vertical)
 	setY(getY() + vertical);
 }
 
-bool Rectangle::withinCircle(double _x, double _y, double _radius)
+bool Rectangle::withinCircle(double _x, double _y, double _radius) const
 {
 	return false;
 }
 
-bool Rectangle::withinRectangle(double _x, double _y, double _height, double _width)
+bool Rectangle::withinRectangle(double _x, double _y, double _height, double _width) const
 {
 	return false;
 }
 
-void Rectangle::print()
+void Rectangle::print() const
 {
 	Figure::print();
 	std::cout << "Width: " << width << std::endl;
 	std::cout << "Height: " << height << std::endl;
+}
+
+void Rectangle::writeFile() const
+{
+	//<rect x = "5" y = "5" width = "10" height = "10" fill = "green" / >
+	std::cout << "<" << getShape() << " x = \"" << getX() << "\" y = \"" << getY() << "\" width = \"" << width << "\" height = \"" << height << "\" fill = \"" << getColour() << "\" />";
 }

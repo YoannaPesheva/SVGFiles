@@ -1,40 +1,11 @@
-#include "CommandExecutioner.h"
 #include<iostream>
+#include "CommandExecutioner.h"
+#include "FileWork.h"
+#include "Vector.h"
+#include "Figures.h"
 
-void CommandExecutioner::remove()
-{
-	for (int i = 0; i < arr.getCurrSize(); i++)
-	{
-		delete arr[i];
-	}
-}
 
-CommandExecutioner::CommandExecutioner()
-{
-	arr = Vector<Figure*>();
-}
-
-CommandExecutioner::CommandExecutioner(const CommandExecutioner& other)
-{
-	for (int i = 0; i < other.arr.getCurrSize(); i++)
-	{
-		this->arr[i] = other.arr[i];
-	}
-}
-
-CommandExecutioner& CommandExecutioner::operator=(const CommandExecutioner& other)
-{
-	if (this != &other)
-	{
-		remove();
-		for (int i = 0; i < other.arr.getCurrSize(); i++)
-		{
-			this->arr[i] = other.arr[i];
-		}
-	}
-	return *this;
-}
-
+//The actual commands now :D
 void CommandExecutioner::start()
 {
 	char command[16] = "-1";
@@ -78,10 +49,42 @@ void CommandExecutioner::start()
 			EndProgram();
 			break;
 		}
+		else if (commandCode == 8)
+		{
+			openFile();
+		}
+		else if (commandCode == 9)
+		{
+			closeFile();
+		}
+		else if (commandCode == 10)
+		{
+			//saveChanges();
+		}
+		else if (commandCode == 6)
+		{
+			//saveChangesAs();
+		}
 		std::cout << "What would you like to do: ";
 		std::cin.getline(command, 16);
 
 	} while (commandCode != 6);
+}
+
+FileWork file;
+
+void CommandExecutioner::openFile()
+{
+	char buffer[100] = "\0";
+	std::cout << "Please enter the name of the file you want to open: ";
+	std::cin.getline(buffer, 99);
+	file.setName(buffer);
+	file.openFile(arr);
+}
+
+void CommandExecutioner::closeFile()
+{
+	file.closeFile();
 }
 
 void CommandExecutioner::InvalidCommandMessage()
@@ -127,7 +130,7 @@ void CommandExecutioner::executeWithinFigure()
 
 	// x and y for circle - the coordinates of the center
 	// x and y for rectangle - the coordinates of the top left corner
-	char figure[10]="\0";
+	char figure[10] = "\0";
 	do {
 		std::cout << "Please enter the figure, which you would like to check whats inside for (be aware, the figure can be either circle or rectangle): ";
 		std::cin.getline(figure, 10);
@@ -235,7 +238,7 @@ void CommandExecutioner::removeFigure()
 	do {
 		std::cout << "Please enter the number of the figure you want removed: ";
 		std::cin >> index;
-	} while (index<=0 || index>arr.getCurrSize());
+	} while (index <= 0 || index > arr.getCurrSize());
 	arr.removeAt(++index);
 	std::cout << "The figure was successfully removed!" << std::endl;
 	std::cin.ignore(1);
@@ -249,7 +252,7 @@ void CommandExecutioner::printAll()
 		return;
 	}
 	int i = 0;
-	for (i = 0; i < size-1; i++)
+	for (i = 0; i < size - 1; i++)
 	{
 		arr[i]->print();
 		std::cout << std::endl;

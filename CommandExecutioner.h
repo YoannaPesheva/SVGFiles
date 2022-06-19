@@ -1,20 +1,25 @@
 #include "Vector.h"
 #include "Figures.h"
 #include "Commands.h"
+
 class CommandExecutioner {
 private:
-	Vector<Figure*> arr;
-	void remove();
+	ShapesContainer arr;
 
 public:
-	CommandExecutioner();
-	CommandExecutioner(const CommandExecutioner& other);
-	CommandExecutioner& operator=(const CommandExecutioner& other);
-	~CommandExecutioner() { remove(); }
-
 
 	//start the program
 	void  start();
+
+
+	//file related commands
+	void openFile();
+
+	void closeFile();
+
+	//void saveChanges();
+
+	//void saveChangesAs();
 
 	// commands
 	void InvalidCommandMessage();
