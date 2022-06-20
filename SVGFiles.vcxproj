@@ -147,10 +147,13 @@
     <ClCompile Include="String.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Circle.h" />
     <ClInclude Include="CommandExecutioner.h" />
     <ClInclude Include="Commands.h" />
     <ClInclude Include="Figures.h" />
     <ClInclude Include="FileWork.h" />
+    <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="Line.h" />
     <ClInclude Include="String.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>

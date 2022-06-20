@@ -57,7 +57,6 @@ public:
 	Figure* clone() const {	return new Line(*this); }
 	void printFile(std::ostream& out) const override;
 
-	friend std::ostream& operator<< (std::ostream& out, const Figure*& shape);
 };
 
 
