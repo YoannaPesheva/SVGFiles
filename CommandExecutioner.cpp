@@ -72,7 +72,7 @@ void CommandExecutioner::start()
 		if (commandCode == 9 && strcmp(command, "open") != 0 && strcmp(command, "Open") != 0 && strcmp(command, "end")!=0 && strcmp(command, "End") != 0)
 		{
 			do {
-				std::cout << "What would you like to do: ";
+				std::cout << "After using the command close, it is neccessary to use the command open before continuing. Please do:  ";
 				std::cin.getline(command, 16);
 			} while (strcmp(command, "open") != 0 && strcmp(command, "Open") != 0);
 		}
@@ -114,6 +114,11 @@ void CommandExecutioner::InvalidCommandMessage()
 void CommandExecutioner::executeTranslation()
 {
 	int size = arr.getCurrSize();
+	if (size == 0)
+	{
+		std::cout << "There are no shapes yet!" << std::endl;
+		return;
+	}
 	int horizontal = 0, vertical = 0;
 	std::cout << "Please enter by how many centimeters do you want to move the figure/s horizontically(the X-axis): ";
 	std::cin >> horizontal;
@@ -142,11 +147,17 @@ void CommandExecutioner::executeTranslation()
 		}
 	}
 	std::cout << "Yay! Translation successful!" << std::endl;
+	std::cin.ignore(1);
 }
 
 void CommandExecutioner::executeWithinFigure()
 {
-
+	int size = arr.getCurrSize();
+	if (size == 0)
+	{
+		std::cout << "There are no shapes yet!" << std::endl;
+		return;
+	}
 	// x and y for circle - the coordinates of the center
 	// x and y for rectangle - the coordinates of the top left corner
 	char figure[10] = "\0";
@@ -155,7 +166,6 @@ void CommandExecutioner::executeWithinFigure()
 		std::cin.getline(figure, 10);
 	} while (strcmp(figure, "circle") != 0 && strcmp(figure, "rectangle") != 0);
 
-	int size = arr.getCurrSize();
 
 	double x = 0, y = 0;
 	std::cout << "Please enter X-axis: ";
@@ -199,6 +209,7 @@ void CommandExecutioner::executeWithinFigure()
 
 void CommandExecutioner::addFigure()
 {
+	std::string colour = "";
 	char figure[10];
 	double x = 0, y = 0;
 	std::cout << "What figure would you like to add: ";
@@ -212,7 +223,9 @@ void CommandExecutioner::addFigure()
 		std::cin >> y;
 		std::cout << "Please enter the radius of the circle: ";
 		std::cin >> radius;
-		arr.add(new Circle(x, y, radius));
+		std::cout << "Please enter the colour of the circle: ";
+		std::cin >> colour;
+		arr.add(new Circle(x, y, radius, colour));
 	}
 	else if (strcmp(figure, "rectangle") == 0 || strcmp(figure, "Rectangle") == 0)
 	{
@@ -226,7 +239,9 @@ void CommandExecutioner::addFigure()
 		std::cin >> width;
 		std::cout << "Please enter the height of the rectangle: ";
 		std::cin >> height;
-		arr.add(new Rectangle(x, y, width, height));
+		std::cout << "Please enter the colour of the rectangle: ";
+		std::cin >> colour;
+		arr.add(new Rectangle(x, y, width, height, colour));
 	}
 	else if (strcmp(figure, "line") == 0 || strcmp(figure, "Line") == 0)
 	{
@@ -240,7 +255,9 @@ void CommandExecutioner::addFigure()
 		std::cin >> xEnd;
 		std::cout << "Please enter Y, which is the coordinate of the start point: ";
 		std::cin >> yEnd;
-		arr.add(new Line(x, y, xEnd, yEnd));
+		std::cout << "Please enter the colour of the circle: ";
+		std::cin >> colour;
+		arr.add(new Line(x, y, xEnd, yEnd, colour));
 	}
 	else
 	{
@@ -253,12 +270,18 @@ void CommandExecutioner::addFigure()
 
 void CommandExecutioner::removeFigure()
 {
+	int size = arr.getCurrSize();
 	int index = -1;
+	if (size==0)
+	{
+		std::cout << "There are no shapes yet!" << std::endl;
+		return;
+	}
 	do {
 		std::cout << "Please enter the number of the figure you want removed: ";
 		std::cin >> index;
-	} while (index <= 0 || index > arr.getCurrSize());
-	arr.removeAt(++index);
+	} while (index < 0 || index > arr.getCurrSize());
+	arr.removeAt(index);
 	std::cout << "The figure was successfully removed!" << std::endl;
 	std::cin.ignore(1);
 }

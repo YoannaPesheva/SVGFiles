@@ -129,10 +129,12 @@ public:
 	friend std::ostream& operator <<(std::ostream& out, const ShapesContainer &cont)
 	{
 		int size = cont.getCurrSize();
+		out << "<svg>" << std::endl;
 		for (int i = 0; i < size; i++)
 		{
 			out << *cont.shapes[i];
 		}
+		out << "</svg>" << std::endl;
 
 		return out;
 	}

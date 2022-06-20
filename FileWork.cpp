@@ -30,14 +30,18 @@
 	 if (isFileOpen)
 	 {
 		 std::cout << "Please enter the name of the file you want to save the changes into: ";
-		 std::string nameNew = "";
+		 std::string nameNew;
 		 std::cin >> nameNew;
-		 std::ofstream MyFile(nameNew.c_str());
+		 std::ofstream MyFile(name.c_str());
 		 MyFile << arr;
 		 MyFile.close();
 		 std::ofstream prevFile(name.c_str());
 		 prevFile.close();
 		 isFileOpen = false;
+	 }
+	 else
+	 {
+		 std::cout << "This command requires an open file. Please open one before trying to save the changes there!" << std::endl;
 	 }
 }
 
@@ -74,7 +78,7 @@ char* FileWork::subString(std::string line, int &index, char symbol)
 
 void FileWork::openFile(ShapesContainer& arr)
 {
-	std::fstream MyFile(name.c_str(), std::fstream::out); // std::fstream::out, because fstream wont create a new file otherwise
+	std::ifstream MyFile(name.c_str()); // std::fstream::out, because fstream wont create a new file otherwise
 	if (!MyFile.is_open())
 	{
 		std::cout << "An error occured while trying to open to file!" << std::endl;
@@ -103,10 +107,13 @@ void FileWork::openFile(ShapesContainer& arr)
 				char shape[20] = "";
 				double x, y;
 				char colour[20] = "";
+				int colourIndex = 0;
 				strcpy(shape, subString(line, index, ' '));
 				if (!isShapeValid(shape))
 				{
 					std::cout << "Invalid shape!" << std::endl;
+					std::getline(MyFile, line);
+					if (MyFile.eof()) break;
 					continue;
 				}
 
@@ -127,48 +134,46 @@ void FileWork::openFile(ShapesContainer& arr)
 					int rIndex = getIndex(line, index, '\"');
 					strcpy(buff, subString(line, index, '\"'));
 					radius = std::atof(buff);
-					index = rIndex;
 					
+					colourIndex = getIndex(line, index, '\"');
 					strcpy(buff, subString(line, index, '\"'));
 					strcpy(colour, buff);
-					arr.add(new Circle(x, y, radius));
+					arr.add(new Circle(x, y, radius, colour));
 				}
 
-				else if(shape=="line")
+				else if(strcmp(shape, "line")==0)
 				{
 					double x1 = 0;
 					int x1Index = getIndex(line, index, '\"');
 					strcpy(buff, subString(line, index, '\"'));
 					x1 = std::atof(buff);
-					index = x1Index;
 
 					double y1 = 0;
-					int x2Index = getIndex(line, index, '\"');
+					int y1Index = getIndex(line, index, '\"');
 					strcpy(buff, subString(line, index, '\"'));
 					y1 = std::atof(buff);
-					index = x2Index;
 
+					colourIndex = getIndex(line, index, '\"');
 					strcpy(buff, subString(line, index, '\"'));
 					strcpy(colour, buff);
-					arr.add(new Line(x, y, x1, y1));
+					arr.add(new Line(x, y, x1, y1, colour));
 				}
-				else if (shape == "rect")
+				else if (strcmp(shape,"rect")==0)
 				{
 					double width = 0;
 					int widthIndex = getIndex(line, index, '\"');
 					strcpy(buff, subString(line, index, '\"'));
 					width = std::atof(buff);
-					index = widthIndex;
 
 					double height = 0;
 					int heightIndex = getIndex(line, index, '\"');
 					strcpy(buff, subString(line, index, '\"'));
 					height = std::atof(buff);
-					index = heightIndex;
 
+					colourIndex = getIndex(line, index, '\"');
 					strcpy(buff, subString(line, index, '\"'));
 					strcpy(colour, buff);
-					arr.add(new Rectangle(x, y, width, height));
+					arr.add(new Rectangle(x, y, width, height, colour));
 					
 				}
 				std::getline(MyFile, line);
@@ -179,7 +184,7 @@ void FileWork::openFile(ShapesContainer& arr)
 
 void FileWork::closeFile()
 {
-	std::ofstream myFile(name.c_str());
+	std::ifstream myFile(name.c_str());
 	if (myFile.is_open())
 	{
 		myFile.close();

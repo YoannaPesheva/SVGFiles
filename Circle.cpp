@@ -10,8 +10,9 @@ Circle::Circle()
 	setShape(shape);
 }
 
-Circle::Circle(double _x, double _y, double _radius)
+Circle::Circle(double _x, double _y, double _radius, std::string _colour)
 {
+	setColour(_colour);
 	char shape[7] = "circle";
 	setShape(shape);
 	setX(_x);
@@ -25,7 +26,6 @@ void Circle::translateFig(double horizontal, double vertical)
 	setY(getY() + vertical);
 }
 
-// CIRCLE INSIDE A CIRCLE
 bool Circle::withinCircle(double _x, double _y, double _radius) const
 {
 	double d = sqrt(pow((_x - getX()), 2) + pow((_y - getY()), 2));
@@ -62,11 +62,12 @@ void Circle::print() const
 {
 	Figure::print();
 	std::cout << "Radius: " << radius << std::endl;
+	std::cout << "Colour: " << getColour() << std::endl;
 }
 
 void Circle::printFile(std::ostream& out) const
 {
-	out << "<" << getShape() << " cx = \"" << getX() << "\" cy = \"" << getY() << "\" r = \"" << radius << "\" fill = \"" << getColour() << "\" />";
+	out << "<" << getShape() << " cx = \"" << getX() << "\" cy = \"" << getY() << "\" r = \"" << radius << "\" fill = \"" << getColour() << "\" />" << std::endl;
 
 }
 

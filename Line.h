@@ -6,7 +6,7 @@ private:
 	double xEnd, yEnd;
 public:
 	Line();
-	Line(double _x, double _y, double _xEnd, double _yEnd); //shape!!!
+	Line(double _x, double _y, double _xEnd, double _yEnd, std::string _colour); //!!colour
 
 	void setXEnd(double _x) { xEnd = _x; }
 	void setYEnd(double _y) { yEnd = _y; }

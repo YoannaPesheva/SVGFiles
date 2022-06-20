@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector.h"
 #include "Figures.h"
+#include "String.h"
 
 #include<iostream>
 #include<fstream>

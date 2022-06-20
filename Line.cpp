@@ -1,5 +1,6 @@
 #include "Figures.h"
 #include "Line.h"
+#include "String.h"
 
 #include<iostream>
 
@@ -12,8 +13,9 @@ Line::Line()
 	setShape(shape);
 }
 
-Line::Line(double _x, double _y, double _xEnd, double _yEnd)
+Line::Line(double _x, double _y, double _xEnd, double _yEnd, std::string _colour)
 {
+	setColour(_colour);
 	char shape[5] = "line";
 	setShape(shape);
 	setX(_x);
@@ -52,9 +54,10 @@ void Line::print() const
 	Figure::print();
 	std::cout << "X of the end point is: " << xEnd << std::endl;
 	std::cout << "Y of the end point is: " << yEnd << std::endl;
+	std::cout << "Colour: " << getColour() << std::endl;
 }
 
 void Line::printFile(std::ostream& out) const
 {
-	std::cout << "<" << getShape() << " x1 = \"" << getX() << "\" y1 = \"" << getY() << "\" x2 = \"" << xEnd << "\" y2 = \"" << yEnd << "\" fill = \"" << getColour() << "\" />";
+	out << "<" << getShape() << " x1 = \"" << getX() << "\" y1 = \"" << getY() << "\" x2 = \"" << xEnd << "\" y2 = \"" << yEnd << "\" fill = \"" << getColour() << "\" />" << std::endl;
 }

@@ -11,8 +11,9 @@ Rectangle::Rectangle()
 	setShape(shape);
 }
 
-Rectangle::Rectangle(double _x, double _y, double _width, double _height)
+Rectangle::Rectangle(double _x, double _y, double _width, double _height, std::string _colour)
 {
+	setColour(_colour);
 	char shape[10] = "rectangle";
 	setShape(shape);
 	setX(_x);
@@ -52,11 +53,12 @@ void Rectangle::print() const
 	Figure::print();
 	std::cout << "Width: " << width << std::endl;
 	std::cout << "Height: " << height << std::endl;
+	std::cout << "Colour: " << getColour() << std::endl;
 }
 
 void Rectangle::printFile(std::ostream& out) const
 {
-	out << "<" << getShape() << " x = \"" << getX() << "\" y = \"" << getY() << "\" width = \"" << width << "\" height = \"" << height << "\" fill = \"" << getColour() << "\" />";
+	out << "<rect" << " x = \"" << getX() << "\" y = \"" << getY() << "\" width = \"" << width << "\" height = \"" << height << "\" fill = \"" << getColour() << "\" />" << std::endl;
 
 }
 

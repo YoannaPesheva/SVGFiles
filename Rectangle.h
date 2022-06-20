@@ -6,7 +6,7 @@ private:
 	double width, height;
 public:
 	Rectangle();
-	Rectangle(double _x, double _y, double _width, double _height);//!!!! shape
+	Rectangle(double _x, double _y, double _width, double _height, std::string _colour);
 
 	void setWidth(double _width) { width = _width; }
 	void setHeight(double _height) { height = _height; }
@@ -16,9 +16,7 @@ public:
 
 	void translateFig(double horizontal, double vertical) override;
 
-	//!!!
 	bool withinCircle(double _x, double _y, double _radius)const override;
-	//!!!
 	bool withinRectangle(double _x, double _y, double _height, double _width)const override;
 
 	void print() const override;

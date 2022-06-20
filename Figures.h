@@ -6,7 +6,7 @@
 class Figure {
 private:
 	char shape[15];
-	MyString colour;
+	std::string colour;
 	double x, y;
 public:
 	Figure();
@@ -15,11 +15,10 @@ public:
 
 	void setX(double _x) { x = _x; }
 	void setY(double _y) { y = _y; }
-	//!!!
 	char* setShape(char* _shape);//const char* 
-	void setColour(MyString _colour) { colour = _colour; }
+	void setColour(std::string _colour) { colour = _colour; }
 
-	const MyString getColour() const { return colour; }
+	const std::string getColour() const { return colour; }
 	const double getX() const { return x; }
 	const double getY() const { return y; }
 	const char* getShape() const { return shape; }
