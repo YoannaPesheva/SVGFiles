@@ -17,7 +17,7 @@ public:
 
 	void closeFile();
 
-	//void saveChanges();
+	void saveChanges();
 
 	//void saveChangesAs();
 

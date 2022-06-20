@@ -9,7 +9,8 @@ int main()
 	CommandExecutioner c;
 	c.start();
 	 
-	//std::string name = "texti.txt";
+	//std::string name;
+	//std::cin >> name;
 	//std::ofstream MyFile(name.c_str());
 	//if (MyFile.is_open())
 	//{

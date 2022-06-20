@@ -4,13 +4,29 @@
 #include<iostream>
 #include "Vector.h"
 
-
-void FileWork::saveChanges(ShapesContainer& arr)
+ void FileWork::saveChanges(ShapesContainer& arr)
 {
-
+	if (isFileOpen)
+	{
+		std::ofstream MyFile(name.c_str());
+		MyFile << arr;
+		MyFile.close();
+	}
+	else
+	{
+		std::cout << "This command requires an open file. Please open one before trying to save the changes there!" << std::endl;
+	}
 }
 
-int getIndex(std::string line, int &index, char symbol)
+bool isShapeValid(char* shape)
+{
+	if (strcmp(shape, "circle") == 0 || strcmp(shape, "rect") == 0 || strcmp(shape, "line") == 0)
+		return true;
+	return false;
+}
+
+
+int FileWork::getIndex(std::string line, int &index, char symbol)
 {
 	while (line[index] != symbol)
 	{
@@ -35,7 +51,7 @@ char* FileWork::subString(std::string line, int &index, char symbol)
 
 void FileWork::openFile(ShapesContainer& arr)
 {
-	std::fstream MyFile(name.c_str());
+	std::fstream MyFile(name.c_str(), std::fstream::out); // std::fstream::out, because fstream wont create a new file otherwise
 	if (!MyFile.is_open())
 	{
 		std::cout << "An error occured while trying to open to file!" << std::endl;
@@ -65,6 +81,11 @@ void FileWork::openFile(ShapesContainer& arr)
 				double x, y;
 				char colour[20] = "";
 				strcpy(shape, subString(line, index, ' '));
+				if (!isShapeValid(shape))
+				{
+					std::cout << "Invalid shape!" << std::endl;
+					continue;
+				}
 
 				int xIndex = getIndex(line, index, '\"');
 				strcpy(buff, subString(line, xIndex, '\"'));

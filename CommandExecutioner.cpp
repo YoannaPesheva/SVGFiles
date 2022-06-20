@@ -59,7 +59,7 @@ void CommandExecutioner::start()
 		}
 		else if (commandCode == 10)
 		{
-			//saveChanges();
+			saveChanges();
 		}
 		else if (commandCode == 6)
 		{
@@ -92,6 +92,11 @@ void CommandExecutioner::openFile()
 void CommandExecutioner::closeFile()
 {
 	file.closeFile();
+}
+
+void CommandExecutioner::saveChanges()
+{
+	file.saveChanges(arr);
 }
 
 void CommandExecutioner::InvalidCommandMessage()

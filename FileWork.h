@@ -26,6 +26,7 @@ public:
 
 	bool areTagsValid();
 
-	static char* subString(std::string line, int &index, char symbol);
+	char* subString(std::string line, int& index, char symbol);
+	int getIndex(std::string line, int& index, char symbol);
 
 };;

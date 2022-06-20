@@ -125,4 +125,15 @@ public:
 	}
 
 
+	friend std::ostream& operator <<(std::ostream& out, const ShapesContainer &cont)
+	{
+		int size = cont.getCurrSize();
+		for (int i = 0; i < size; i++)
+		{
+			out << *cont.shapes[i];
+		}
+
+		return out;
+	}
+
 };

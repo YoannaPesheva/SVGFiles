@@ -71,10 +71,6 @@ void Line::print() const
 	std::cout << "Y of the end point is: " << yEnd << std::endl;
 }
 
-void Line::writeFile() const
-{
-	std::cout << "<" << getShape() << " x1 = \"" << getX() << "\" y1 = \"" << getY() << "\" x2 = \"" << xEnd << "\" y2 = \"" << yEnd << "\" fill = \"" << getColour() << "\" />";
-}
 
 
 //circle
@@ -117,10 +113,7 @@ void Circle::print() const
 	std::cout << "Radius: " << radius << std::endl;
 }
 
-void Circle::writeFile() const
-{
-	std::cout << "<" << getShape() << " cx = \"" << getX() << "\" cy = \"" << getY() << "\" r = \"" << radius << "\" fill = \"" << getColour() << "\" />";
-}
+
 
 
 //rectangle
@@ -164,8 +157,26 @@ void Rectangle::print() const
 	std::cout << "Height: " << height << std::endl;
 }
 
-void Rectangle::writeFile() const
+
+void Line::printFile(std::ostream& out) const
 {
-	//<rect x = "5" y = "5" width = "10" height = "10" fill = "green" / >
-	std::cout << "<" << getShape() << " x = \"" << getX() << "\" y = \"" << getY() << "\" width = \"" << width << "\" height = \"" << height << "\" fill = \"" << getColour() << "\" />";
+	std::cout << "<" << getShape() << " x1 = \"" << getX() << "\" y1 = \"" << getY() << "\" x2 = \"" << xEnd << "\" y2 = \"" << yEnd << "\" fill = \"" << getColour() << "\" />";
+}
+
+void Circle::printFile(std::ostream& out) const
+{
+	out << "<" << getShape() << " cx = \"" << getX() << "\" cy = \"" << getY() << "\" r = \"" << radius << "\" fill = \"" << getColour() << "\" />";
+
+}
+
+void Rectangle::printFile(std::ostream& out) const
+{
+	out<< "<" << getShape() << " x = \"" <<getX() << "\" y = \"" <<getY() << "\" width = \"" << width << "\" height = \"" << height << "\" fill = \"" << getColour() << "\" />";
+	
+}
+
+std::ostream& operator<<(std::ostream& out, const Figure& shape)
+{
+	shape.printFile(out);
+	return out;
 }

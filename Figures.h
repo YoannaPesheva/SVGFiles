@@ -29,7 +29,9 @@ public:
 	virtual bool withinRectangle(double _x, double _y, double _height, double _width) const = 0;
 
 	virtual void print() const;
-	virtual void writeFile() const = 0;
+	virtual void printFile(std::ostream& out) const = 0;
+
+	friend std::ostream& operator<<(std::ostream& out, const Figure& shape);
 };
 
 
@@ -52,8 +54,10 @@ public:
 	bool withinRectangle(double _x, double _y, double _height, double _width) const override;
 
 	void print() const override;
-	void writeFile() const override;//!!!
 	Figure* clone() const {	return new Line(*this); }
+	void printFile(std::ostream& out) const override;
+
+	friend std::ostream& operator<< (std::ostream& out, const Figure*& shape);
 };
 
 
@@ -74,8 +78,8 @@ public:
 	bool withinRectangle(double _x, double _y, double _height, double _width) const override;
 
 	void print() const override;
-	void writeFile() const override;
 	Figure* clone() const { return new Circle(*this); }
+	void printFile(std::ostream& out) const override;
 };
 
 
@@ -100,6 +104,6 @@ public:
 	bool withinRectangle(double _x, double _y, double _height, double _width)const override;
 
 	void print() const override;
-	void writeFile() const override;
 	Figure* clone() const { return new Rectangle(*this); }
+	void printFile(std::ostream& out) const override;
 };
