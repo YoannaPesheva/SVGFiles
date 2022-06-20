@@ -143,7 +143,10 @@
     <ClCompile Include="Commands.cpp" />
     <ClCompile Include="Figures.cpp" />
     <ClCompile Include="FileWork.cpp" />
+    <ClCompile Include="Line.cpp" />
+    <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Circle.cpp" />
     <ClCompile Include="String.cpp" />
   </ItemGroup>
   <ItemGroup>

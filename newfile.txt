@@ -1,1 +1,1 @@
-<not defined cx = "1" cy = "1" r = "1" fill = "" />
+<circle cx = "1" cy = "1" r = "1" fill = "" />

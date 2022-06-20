@@ -1,8 +1,13 @@
 #define _CRT_SECURE_NO_WARNINGS
+#include "Figures.h"
+#include "Line.h"
+#include "Circle.h"
+#include "Rectangle.h"
+#include "Vector.h"
 #include "FileWork.h"
+
 #include<fstream>
 #include<iostream>
-#include "Vector.h"
 
  void FileWork::saveChanges(ShapesContainer& arr)
 {
@@ -11,11 +16,29 @@
 		std::ofstream MyFile(name.c_str());
 		MyFile << arr;
 		MyFile.close();
+		isFileOpen = false;
+		std::cout << "Successfully saved the changes in " << name << "."<<std::endl;
 	}
 	else
 	{
 		std::cout << "This command requires an open file. Please open one before trying to save the changes there!" << std::endl;
 	}
+}
+
+ void FileWork::saveChangesAs(ShapesContainer& arr, std::string name)
+{
+	 if (isFileOpen)
+	 {
+		 std::cout << "Please enter the name of the file you want to save the changes into: ";
+		 std::string nameNew = "";
+		 std::cin >> nameNew;
+		 std::ofstream MyFile(nameNew.c_str());
+		 MyFile << arr;
+		 MyFile.close();
+		 std::ofstream prevFile(name.c_str());
+		 prevFile.close();
+		 isFileOpen = false;
+	 }
 }
 
 bool isShapeValid(char* shape)
@@ -164,9 +187,5 @@ void FileWork::closeFile()
 		isFileOpen = false;
 	}
 	else std::cout << "Error! Please open a file, before trying to use this command!" << std::endl;
-}
-
-void FileWork::saveChangesAs(ShapesContainer& arr)
-{
 }
 

@@ -1,6 +1,4 @@
 #include "Vector.h"
-#include "Figures.h"
-#include "Commands.h"
 
 class CommandExecutioner {
 private:
@@ -19,7 +17,7 @@ public:
 
 	void saveChanges();
 
-	//void saveChangesAs();
+	void saveChangesAs();
 
 	// commands
 	void InvalidCommandMessage();

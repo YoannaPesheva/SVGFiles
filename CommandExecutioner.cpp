@@ -1,11 +1,13 @@
 #include<iostream>
-#include "CommandExecutioner.h"
-#include "FileWork.h"
-#include "Vector.h"
 #include "Figures.h"
+#include "Circle.h"
+#include "Line.h"
+#include "Rectangle.h"
+#include "Vector.h"
+#include "Commands.h"
+#include "FileWork.h"
+#include "CommandExecutioner.h"
 
-
-//The actual commands now :D
 void CommandExecutioner::start()
 {
 	char command[16] = "-1";
@@ -63,7 +65,7 @@ void CommandExecutioner::start()
 		}
 		else if (commandCode == 6)
 		{
-			//saveChangesAs();
+			saveChangesAs();
 		}
 		std::cout << "What would you like to do: ";
 		std::cin.getline(command, 16);
@@ -97,6 +99,11 @@ void CommandExecutioner::closeFile()
 void CommandExecutioner::saveChanges()
 {
 	file.saveChanges(arr);
+}
+
+void CommandExecutioner::saveChangesAs()
+{
+	file.saveChangesAs(arr, file.getName());
 }
 
 void CommandExecutioner::InvalidCommandMessage()
@@ -146,7 +153,7 @@ void CommandExecutioner::executeWithinFigure()
 	do {
 		std::cout << "Please enter the figure, which you would like to check whats inside for (be aware, the figure can be either circle or rectangle): ";
 		std::cin.getline(figure, 10);
-	} while (strcmp(figure, "circle") != 0 || strcmp(figure, "rectangle") != 0);
+	} while (strcmp(figure, "circle") != 0 && strcmp(figure, "rectangle") != 0);
 
 	int size = arr.getCurrSize();
 
@@ -287,7 +294,7 @@ void CommandExecutioner::EndProgram()
 		} while (commandCode != 10 && commandCode != 11 && commandCode != 9);
 		if (commandCode == 9) file.closeFile();
 		else if (commandCode == 10) file.saveChanges(arr);
-		else if (commandCode == 11) file.saveChangesAs(arr);
+		else if (commandCode == 11) file.saveChangesAs(arr, file.getName());
 	}
 	std::cout << "Thank you for using the program! See you next time :)" << std::endl;
 	return;

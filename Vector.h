@@ -1,6 +1,7 @@
 #pragma once
-#include<iostream>
 #include "Figures.h"
+
+#include<iostream>
 
 
 class ShapesContainer {
