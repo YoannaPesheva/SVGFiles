@@ -68,7 +68,6 @@ public:
 	~ShapesContainer()
 	{
 		free();
-		_CrtDumpMemoryLeaks();
 	}
 	//endOfBig4
 
@@ -98,7 +97,7 @@ public:
 		{
 			std::swap(shapes[i], shapes[i + 1]);
 		}
-		delete shapes[currSize - 1];////added
+		delete shapes[currSize - 1];
 		pop();
 
 	}
@@ -112,19 +111,6 @@ public:
 	{
 		return currSize;
 	}
-
-	std::string getSubstring(std::string line, int index, char symbol)
-	{
-		std::string subStr = " ";
-		int i = 0;
-		while (line[index] != symbol) {
-			subStr[i] = line[index];
-			i++;
-			index++;
-		}
-		return subStr;
-	}
-
 
 	friend std::ostream& operator <<(std::ostream& out, const ShapesContainer &cont)
 	{

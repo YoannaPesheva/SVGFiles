@@ -1,8 +1,0 @@
-<svg>
-<circle cx = "5" cy = "5" r = "10" fill = "blue" />
-<rect x = "5" y = "5" width = "10" height = "10" fill = "green" />
-<circle cx = "5" cy = "5" r = "10" fill = "blue" />
-<rect x = "100" y = "60" width = "10" height = "10" fill = "red" />
-<line x1 = "100" y1 = "60" x2 = "10" y2 = "10" fill = "red" />
-<circle cx = "1" cy = "1" r = "1" fill = "green" />
-</svg>
