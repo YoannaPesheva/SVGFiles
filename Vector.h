@@ -112,4 +112,17 @@ public:
 		return currSize;
 	}
 
+	std::string getSubstring(std::string line, int index, char symbol)
+	{
+		std::string subStr = " ";
+		int i = 0;
+		while (line[index] != symbol) {
+			subStr[i] = line[index];
+			i++;
+			index++;
+		}
+		return subStr;
+	}
+
+
 };

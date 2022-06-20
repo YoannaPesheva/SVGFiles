@@ -1,10 +1,11 @@
 #pragma once
+#include "String.h"
 #include <string>
 
 class Figure {
 private:
 	char shape[15];
-	std::string colour;
+	MyString colour;
 	double x, y;
 public:
 	Figure();
@@ -15,9 +16,9 @@ public:
 	void setY(double _y) { y = _y; }
 	//!!!
 	char* setShape(char* _shape);//const char* 
-	void setColour(std::string _colour) { colour = _colour; }
+	void setColour(MyString _colour) { colour = _colour; }
 
-	const std::string getColour() const { return colour; }
+	const MyString getColour() const { return colour; }
 	const double getX() const { return x; }
 	const double getY() const { return y; }
 	const char* getShape() const { return shape; }
@@ -37,7 +38,7 @@ private:
 	double xEnd, yEnd;
 public:
 	Line();
-	Line(double _x, double _y, double _xEnd, double _yEnd, char* shape);
+	Line(double _x, double _y, double _xEnd, double _yEnd); //shape!!!
 
 	void setXEnd(double _x) { xEnd = _x; }
 	void setYEnd(double _y) { yEnd = _y; }
@@ -52,12 +53,7 @@ public:
 
 	void print() const override;
 	void writeFile() const override;//!!!
-	Figure* clone() const
-	{
-		//Figure* copy = new Line(*this);
-		//return copy;
-		return new Line(*this);
-	}
+	Figure* clone() const {	return new Line(*this); }
 };
 
 
@@ -66,7 +62,7 @@ private:
 	double radius;
 public:
 	Circle();
-	Circle(double _x, double _y, double _radius, char* shape);
+	Circle(double _x, double _y, double _radius); //!!!!mahnah shape
 
 	void setRadius(double _radius) { radius = _radius; }
 	double getRadius() const { return radius; }
@@ -79,11 +75,7 @@ public:
 
 	void print() const override;
 	void writeFile() const override;
-	Figure* clone() const
-	{
-		Figure* copy = new Circle(*this);
-		return copy;
-	}
+	Figure* clone() const { return new Circle(*this); }
 };
 
 
@@ -92,7 +84,7 @@ private:
 	double width, height;
 public:
 	Rectangle();
-	Rectangle(double _x, double _y, double _width, double _height, char* shape);
+	Rectangle(double _x, double _y, double _width, double _height);//!!!! shape
 
 	void setWidth(double _width) { width = _width; }
 	void setHeight(double _height) { height = _height; }
@@ -109,9 +101,5 @@ public:
 
 	void print() const override;
 	void writeFile() const override;
-	Figure* clone() const
-	{
-		Figure* copy = new Rectangle(*this);
-		return copy;
-	}
+	Figure* clone() const { return new Rectangle(*this); }
 };

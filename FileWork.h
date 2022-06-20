@@ -8,10 +8,15 @@
 class FileWork
 {
 	std::string name;
+	bool isFileOpen;
 public:
 
 	std::string const getName() const { return name; }
 	void setName(std::string _name) { name = _name; }
+
+	bool const getIsOpen() const { return isFileOpen; }
+	void setIsOpen(bool statement) { isFileOpen = statement; }
+	
 
 	void saveChanges(ShapesContainer& arr);
 	void openFile(ShapesContainer& arr);
@@ -20,5 +25,7 @@ public:
 
 
 	bool areTagsValid();
+
+	static char* subString(std::string line, int &index, char symbol);
 
 };;

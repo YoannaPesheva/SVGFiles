@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "FileWork.h"
 #include<fstream>
 #include<iostream>
@@ -9,6 +10,29 @@ void FileWork::saveChanges(ShapesContainer& arr)
 
 }
 
+int getIndex(std::string line, int &index, char symbol)
+{
+	while (line[index] != symbol)
+	{
+		index++;
+	}
+	return ++index;
+}
+
+char* FileWork::subString(std::string line, int &index, char symbol)
+{
+	char buffer[30] = "\0";
+	int j = 0;
+	while (line[index] != symbol)
+	{
+		buffer[j] = line[index];
+		index++;
+		j++;
+	}
+	index += 2;
+	return buffer;
+}
+
 void FileWork::openFile(ShapesContainer& arr)
 {
 	std::fstream MyFile(name.c_str());
@@ -18,10 +42,94 @@ void FileWork::openFile(ShapesContainer& arr)
 		return;
 	}
 	std::cout << "File successfully opened!" << std::endl;
+	isFileOpen = true;
 	bool isEmpty = MyFile.peek() == EOF;
 	if (!isEmpty)
 	{
+		std::string line="";
+		std::string opTag = "<svg>";
+		while (!MyFile.eof() && opTag!=line)
+		{
+			std::getline(MyFile, line);
+		}
+		if (MyFile.eof()) {
+			std::cout << "No SVG text found in the file!" << std::endl;
+			return;
+		}
+		else {
+			std::getline(MyFile, line);
+			do {
+				int index = 1;
+				char buff[20] = " ";
+				char shape[20] = "";
+				double x, y;
+				char colour[20] = "";
+				strcpy(shape, subString(line, index, ' '));
 
+				int xIndex = getIndex(line, index, '\"');
+				strcpy(buff, subString(line, xIndex, '\"'));
+				x = std::atof(buff);
+				index = xIndex;
+
+				int yIndex = getIndex(line, index, '\"');
+				strcpy(buff, subString(line, yIndex, '\"'));
+				y = std::atof(buff);
+				index = yIndex;
+
+
+				if (strcmp(shape, "circle")==0)
+				{	
+					double radius = 0;
+					int rIndex = getIndex(line, index, '\"');
+					strcpy(buff, subString(line, index, '\"'));
+					radius = std::atof(buff);
+					index = rIndex;
+					
+					strcpy(buff, subString(line, index, '\"'));
+					strcpy(colour, buff);
+					arr.add(new Circle(x, y, radius));
+				}
+
+				else if(shape=="line")
+				{
+					double x1 = 0;
+					int x1Index = getIndex(line, index, '\"');
+					strcpy(buff, subString(line, index, '\"'));
+					x1 = std::atof(buff);
+					index = x1Index;
+
+					double y1 = 0;
+					int x2Index = getIndex(line, index, '\"');
+					strcpy(buff, subString(line, index, '\"'));
+					y1 = std::atof(buff);
+					index = x2Index;
+
+					strcpy(buff, subString(line, index, '\"'));
+					strcpy(colour, buff);
+					arr.add(new Line(x, y, x1, y1));
+				}
+				else if (shape == "rect")
+				{
+					double width = 0;
+					int widthIndex = getIndex(line, index, '\"');
+					strcpy(buff, subString(line, index, '\"'));
+					width = std::atof(buff);
+					index = widthIndex;
+
+					double height = 0;
+					int heightIndex = getIndex(line, index, '\"');
+					strcpy(buff, subString(line, index, '\"'));
+					height = std::atof(buff);
+					index = heightIndex;
+
+					strcpy(buff, subString(line, index, '\"'));
+					strcpy(colour, buff);
+					arr.add(new Rectangle(x, y, width, height));
+					
+				}
+				std::getline(MyFile, line);
+			} while (!MyFile.eof() && line!="</svg>");
+		}
 	}
 }
 
@@ -32,6 +140,7 @@ void FileWork::closeFile()
 	{
 		myFile.close();
 		std::cout << "File successfully closed!" << std::endl;
+		isFileOpen = false;
 	}
 	else std::cout << "Error! Please open a file, before trying to use this command!" << std::endl;
 }
@@ -39,3 +148,4 @@ void FileWork::closeFile()
 void FileWork::saveChangesAs(ShapesContainer& arr)
 {
 }
+

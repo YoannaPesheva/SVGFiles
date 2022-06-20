@@ -30,9 +30,9 @@ Line::Line()
 		setShape(shape);
 }
 
-Line::Line(double _x, double _y, double _xEnd, double _yEnd, char* shape)
+Line::Line(double _x, double _y, double _xEnd, double _yEnd)
 {
-	setShape(shape);
+	//setShape("line");
 	setX(_x);
 	setY(_y);
 	xEnd = _xEnd;
@@ -85,9 +85,9 @@ Circle::Circle()
 	setShape(shape);
 }
 
-Circle::Circle(double _x, double _y, double _radius, char* shape)
+Circle::Circle(double _x, double _y, double _radius)
 {
-	setShape(shape);
+	//setShape(shape);
 	setX(_x);
 	setY(_y);
 	radius = _radius;
@@ -132,9 +132,9 @@ Rectangle::Rectangle()
 	setShape(shape);
 }
 
-Rectangle::Rectangle(double _x, double _y, double _width, double _height, char* shape)
+Rectangle::Rectangle(double _x, double _y, double _width, double _height)
 {
-	setShape(shape);
+	//setShape(shape);
 	setX(_x);
 	setY(_y);
 	width = _width;

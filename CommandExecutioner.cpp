@@ -67,6 +67,13 @@ void CommandExecutioner::start()
 		}
 		std::cout << "What would you like to do: ";
 		std::cin.getline(command, 16);
+		if (commandCode == 9 && strcmp(command, "open") != 0 && strcmp(command, "Open") != 0 && strcmp(command, "end")!=0 && strcmp(command, "End") != 0)
+		{
+			do {
+				std::cout << "What would you like to do: ";
+				std::cin.getline(command, 16);
+			} while (strcmp(command, "open") != 0 && strcmp(command, "Open") != 0);
+		}
 
 	} while (commandCode != 6);
 }
@@ -193,7 +200,7 @@ void CommandExecutioner::addFigure()
 		std::cin >> y;
 		std::cout << "Please enter the radius of the circle: ";
 		std::cin >> radius;
-		arr.add(new Circle(x, y, radius, figure));
+		arr.add(new Circle(x, y, radius));
 	}
 	else if (strcmp(figure, "rectangle") == 0 || strcmp(figure, "Rectangle") == 0)
 	{
@@ -207,7 +214,7 @@ void CommandExecutioner::addFigure()
 		std::cin >> width;
 		std::cout << "Please enter the height of the rectangle: ";
 		std::cin >> height;
-		arr.add(new Rectangle(x, y, width, height, figure));
+		arr.add(new Rectangle(x, y, width, height));
 	}
 	else if (strcmp(figure, "line") == 0 || strcmp(figure, "Line") == 0)
 	{
@@ -221,7 +228,7 @@ void CommandExecutioner::addFigure()
 		std::cin >> xEnd;
 		std::cout << "Please enter Y, which is the coordinate of the start point: ";
 		std::cin >> yEnd;
-		arr.add(new Line(x, y, xEnd, yEnd, figure));
+		arr.add(new Line(x, y, xEnd, yEnd));
 	}
 	else
 	{
@@ -265,6 +272,18 @@ void CommandExecutioner::printAll()
 
 void CommandExecutioner::EndProgram()
 {
+	if (file.getIsOpen()) {
+		char command[16] = "-1";
+		int commandCode = 0;
+		do {
+			std::cout << "You are about the end the program without closing the file. Please choose between the option close, which will NOT save the changes to your file, or Save and SaveAs: ";
+			std::cin.getline(command, 16);
+			commandCode=Commands::getCommand(command);
+		} while (commandCode != 10 && commandCode != 11 && commandCode != 9);
+		if (commandCode == 9) file.closeFile();
+		else if (commandCode == 10) file.saveChanges(arr);
+		else if (commandCode == 11) file.saveChangesAs(arr);
+	}
 	std::cout << "Thank you for using the program! See you next time :)" << std::endl;
 	return;
 }
