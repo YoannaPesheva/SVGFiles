@@ -84,11 +84,15 @@ FileWork file;
 
 void CommandExecutioner::openFile()
 {
-	char buffer[100] = "\0";
-	std::cout << "Please enter the name of the file you want to open: ";
-	std::cin.getline(buffer, 99);
-	file.setName(buffer);
-	file.openFile(arr);
+	if (!file.getIsOpen())
+	{
+		char buffer[100] = "\0";
+		std::cout << "Please enter the name of the file you want to open: ";
+		std::cin.getline(buffer, 99);
+		file.setName(buffer);
+		file.openFile(arr);
+	}
+	else std::cout << "Please close the current open file, before opening another one!" << std::endl;
 }
 
 void CommandExecutioner::closeFile()
@@ -253,9 +257,9 @@ void CommandExecutioner::addFigure()
 		std::cin >> y;
 		std::cout << "Please enter X, which is the coordinate of the end point: ";
 		std::cin >> xEnd;
-		std::cout << "Please enter Y, which is the coordinate of the start point: ";
+		std::cout << "Please enter Y, which is the coordinate of the end point: ";
 		std::cin >> yEnd;
-		std::cout << "Please enter the colour of the circle: ";
+		std::cout << "Please enter the colour of the line: ";
 		std::cin >> colour;
 		arr.add(new Line(x, y, xEnd, yEnd, colour));
 	}
@@ -280,7 +284,7 @@ void CommandExecutioner::removeFigure()
 	do {
 		std::cout << "Please enter the number of the figure you want removed: ";
 		std::cin >> index;
-	} while (index < 0 || index > arr.getCurrSize());
+	} while (index < 0 || index > arr.getCurrSize()-1);
 	arr.removeAt(index);
 	std::cout << "The figure was successfully removed!" << std::endl;
 	std::cin.ignore(1);
